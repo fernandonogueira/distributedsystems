@@ -5,7 +5,7 @@ Professor Nabor
 
 Alunos:
 
-André
-Fernando Nogueira
-Maria Stephany
-Victor
+* André
+* Fernando Nogueira
+* Maria Stephany
+* Victor
