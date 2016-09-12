@@ -14,4 +14,6 @@ buildNumber.properties
 /.idea/
 .idea
 
-.iml
+*.iml
+
+.project
