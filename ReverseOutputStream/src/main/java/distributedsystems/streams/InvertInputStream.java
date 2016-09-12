@@ -16,19 +16,24 @@ public class InvertInputStream extends InputStream {
     }
 
     public int read(byte[] data, int length, int offset) throws IOException {
-        int contadorDeBytes = 0;
-        int tamanho = offset;
-        int tamanho2 = length;
-        if (tamanho + length > data.length - 1) {
-            tamanho = data.length - 1 - length;
+
+        byte[] auxData = new byte[data.length];
+
+        int readBytes = is.read(auxData, length, offset);
+
+        for (int i = readBytes - 2; i >= 0; i--) {
+            if (auxData[i] == "\n".getBytes()[0]) continue;
+            data[readBytes - (i + 2)] = auxData[i];
         }
-        if (tamanho2 < 0) {
-            tamanho2 = 0;
-        }
-        for (int i = tamanho; i >= tamanho2; i--) {
-            data[i] = (byte) read();
-            contadorDeBytes++;
-        }
-        return contadorDeBytes;
+
+        data[readBytes - 1] = "\n".getBytes()[0];
+
+        return readBytes;
     }
+
+    @Override
+    public void close() throws IOException {
+        is.close();
+    }
+
 }
