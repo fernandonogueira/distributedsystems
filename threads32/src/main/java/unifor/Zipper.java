@@ -10,8 +10,6 @@ public class Zipper {
 
     public static final String PREFIX = "/Users/fernandonogueira/Temp/SD/";
 
-    private static final boolean parallel = true;
-
     public static void main(String[] args) {
 
         if (args == null || args.length == 0) {
@@ -23,15 +21,32 @@ public class Zipper {
             list.add(PREFIX + arg);
         }
 
-        long start = System.currentTimeMillis();
-        if (!parallel) {
-            list.forEach(Zipper::zip);
-        } else {
-            list.parallelStream().forEach(Zipper::zip);
-        }
-        long end = System.currentTimeMillis();
-        System.out.println("Took: " + (end - start) + "ms");
+        long startSync = System.currentTimeMillis();
+        list.forEach(Zipper::zip);
+        long syncEnd = System.currentTimeMillis();
 
+        System.out.println("Sync took: " + (syncEnd - startSync) + "ms");
+
+
+        System.out.println("Starting all threads...");
+        long allThreadsStart = System.currentTimeMillis();
+        List<Thread> threadList = new ArrayList<>();
+        list.forEach(file -> {
+            Thread t = new Thread(new ZipperRunnable(file));
+            threadList.add(t);
+            t.start();
+        });
+
+        threadList.forEach(t -> {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        System.out.println("All threads completed! Took: "
+                + (System.currentTimeMillis() - allThreadsStart) + "ms");
     }
 
     private static void zip(String file) {
