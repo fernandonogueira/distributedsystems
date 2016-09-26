@@ -24,7 +24,6 @@ public class Zipper {
         long startSync = System.currentTimeMillis();
         list.forEach(Zipper::zip);
         long syncEnd = System.currentTimeMillis();
-
         System.out.println("Sync took: " + (syncEnd - startSync) + "ms");
 
 
