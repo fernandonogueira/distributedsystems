@@ -9,7 +9,7 @@ public class ZipResult {
     private String fileName;
     private String fileSize;
     private long durationMs;
-    private long memory;
+    private String memory;
     private int cores;
     private boolean binary;
 
@@ -37,11 +37,11 @@ public class ZipResult {
         this.durationMs = durationMs;
     }
 
-    public long getMemory() {
+    public String getMemory() {
         return memory;
     }
 
-    public void setMemory(long memory) {
+    public void setMemory(String memory) {
         this.memory = memory;
     }
 

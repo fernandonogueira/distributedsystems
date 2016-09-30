@@ -9,6 +9,8 @@ fileDest=/opt/test-files/samples
 
 rm -rf ${fileDest}/*
 
+memorySize=$(awk '/MemTotal/ { print $2 }' /proc/meminfo)
+
 function copyFiles {
 
     totalFiles=$1
@@ -32,17 +34,17 @@ do
         rm -rf ${fileDest}/*
         copyFiles ${fileCount} "file_"${fileSuffix}
         echo "[SYNC] Running [text] files... Count $fileCount !"
-        java -jar target/${JAR_NAME} false false ${fileSuffix} "${fileDest}"
+        java -jar target/${JAR_NAME} false false ${fileSuffix} ${memorySize} "${fileDest}"
         echo "[ASYNC] Running [text] files... Count $fileCount !"
-        java -jar target/${JAR_NAME} true false ${fileSuffix} "${fileDest}"
+        java -jar target/${JAR_NAME} true false ${fileSuffix} ${memorySize} "${fileDest}"
 
         rm -rf ${fileDest}/*
 
         copyFiles ${fileCount} "binary_"${fileSuffix}
         echo "[SYNC] Running [binary] files... Count $fileCount !"
-        java -jar target/${JAR_NAME} false true ${fileSuffix} "${fileDest}"
+        java -jar target/${JAR_NAME} false true ${fileSuffix} ${memorySize} "${fileDest}"
         echo "[ASYNC] Running [binary] files... Count $fileCount !"
-        java -jar target/${JAR_NAME} true true ${fileSuffix} "${fileDest}"
+        java -jar target/${JAR_NAME} true true ${fileSuffix} ${memorySize} "${fileDest}"
 
     done
 

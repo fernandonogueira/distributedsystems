@@ -21,14 +21,13 @@ public class Zipper {
             return;
         }
 
-        long maxMemory = ((com.sun.management.OperatingSystemMXBean) ManagementFactory
-                .getOperatingSystemMXBean()).getTotalPhysicalMemorySize();
         int cores = Runtime.getRuntime().availableProcessors();
         boolean parallel = Boolean.parseBoolean(args[0]);
         boolean binary = Boolean.parseBoolean(args[1]);
         String fileSize = args[2];
+        String memorySize = args[3];
 
-        String filesFolder = args[3];
+        String filesFolder = args[4];
 
         List<String> list = new ArrayList<>();
         try (Stream<Path> paths = Files.walk(Paths.get(filesFolder))) {
@@ -69,7 +68,7 @@ public class Zipper {
             long tookMs = System.currentTimeMillis() - allThreadsStart;
 
             ZipResult result = new ZipResult();
-            result.setMemory(maxMemory);
+            result.setMemory(memorySize);
             result.setCores(cores);
             result.setDurationMs(tookMs);
             result.setBinary(binary);
