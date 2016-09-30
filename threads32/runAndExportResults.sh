@@ -30,13 +30,17 @@ do
     for fileCount in 10 20 40
     do
         copyFiles ${fileCount} "file_"${fileSuffix}
+        echo "[SYNC] Running [text] files... Count $fileCount !"
         java -jar target/${JAR_NAME} false false ${fileSuffix} "${fileDest}"
+        echo "[SYNC] Running [text] files... Count $fileCount !"
         java -jar target/${JAR_NAME} true false ${fileSuffix} "${fileDest}"
 
         rm -rf ${fileDest}/*
 
         copyFiles ${fileCount} "binary_"${fileSuffix}
+        echo "[SYNC] Running [binary] files... Count $fileCount !"
         java -jar target/${JAR_NAME} false true ${fileSuffix} "${fileDest}"
+        echo "[ASYNC] Running [binary] files... Count $fileCount !"
         java -jar target/${JAR_NAME} true true ${fileSuffix} "${fileDest}"
 
     done
