@@ -28,6 +28,8 @@ do
 
     for fileCount in 10 20 40
     do
+
+        rm -rf ${fileDest}/*
         copyFiles ${fileCount} "file_"${fileSuffix}
         echo "[SYNC] Running [text] files... Count $fileCount !"
         java -jar target/${JAR_NAME} false false ${fileSuffix} "${fileDest}"
