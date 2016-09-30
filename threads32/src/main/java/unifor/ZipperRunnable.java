@@ -22,7 +22,7 @@ public class ZipperRunnable implements Runnable {
     private void zip() {
         long start = System.currentTimeMillis();
         try {
-            System.out.println("Starting async zipper. Id: " + uuid);
+//            System.out.println("Starting async zipper. Id: " + uuid);
 
             BufferedInputStream bis;
             bis = new BufferedInputStream(new FileInputStream(file));
@@ -42,8 +42,8 @@ public class ZipperRunnable implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            System.out.println("Finished zipping file with id: "
-                    + uuid + ". Took: " + (System.currentTimeMillis() - start) + "ms");
+//            System.out.println("Finished zipping file with id: "
+//                    + uuid + ". Took: " + (System.currentTimeMillis() - start) + "ms");
         }
     }
 

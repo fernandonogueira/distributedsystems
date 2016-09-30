@@ -4,7 +4,6 @@ JAR_NAME=threads32-1.0-SNAPSHOT.jar
 
 mvn clean package
 
-
 origFilesFolder=/opt/test-files
 fileDest=/opt/test-files/samples
 
@@ -25,7 +24,7 @@ function copyFiles {
 for fileSuffix in "10mb" "20mb" "40mb"
 do
 
-    echo $fileSuffix
+    echo "Starting procedure for $fileSuffix files..."
 
     for fileCount in 10 20 40
     do
