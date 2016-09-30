@@ -32,7 +32,7 @@ do
         copyFiles ${fileCount} "file_"${fileSuffix}
         echo "[SYNC] Running [text] files... Count $fileCount !"
         java -jar target/${JAR_NAME} false false ${fileSuffix} "${fileDest}"
-        echo "[SYNC] Running [text] files... Count $fileCount !"
+        echo "[ASYNC] Running [text] files... Count $fileCount !"
         java -jar target/${JAR_NAME} true false ${fileSuffix} "${fileDest}"
 
         rm -rf ${fileDest}/*
