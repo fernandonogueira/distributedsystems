@@ -1,6 +1,7 @@
 package unifor;
 
 import java.io.*;
+import java.lang.management.ManagementFactory;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,7 +21,8 @@ public class Zipper {
             return;
         }
 
-        long maxMemory = Runtime.getRuntime().maxMemory();
+        long maxMemory = ((com.sun.management.OperatingSystemMXBean) ManagementFactory
+                .getOperatingSystemMXBean()).getTotalPhysicalMemorySize();
         int cores = Runtime.getRuntime().availableProcessors();
         boolean parallel = Boolean.parseBoolean(args[0]);
         boolean binary = Boolean.parseBoolean(args[1]);
