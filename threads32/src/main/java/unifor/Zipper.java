@@ -84,7 +84,7 @@ public class Zipper {
     private static void appendResult(ZipResult result) throws IOException {
         FileWriter writer = new FileWriter(new File("/opt/test-results/result.csv"), true);
         writer.append(result.getCores() + "," + result.getMemory() + "," + result.getFileSize() + "," + result.getDurationMs());
-        writer.write("/n");
+        writer.write("\n");
         writer.flush();
         writer.close();
     }
