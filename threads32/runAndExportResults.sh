@@ -27,13 +27,13 @@ do
 
     for fileCount in 10 20 40
     do
-        copyFiles ${fileCount} "file_${fileSuffix}"
+        copyFiles ${fileCount} "file_$fileSuffix"
         java -jar target/${JAR_NAME} false false ${fileSuffix} "${fileDest}"
         java -jar target/${JAR_NAME} true false ${fileSuffix} "${fileDest}"
 
         rm -rf ${fileDest}/*
 
-        copyFiles ${fileCount} "binary_${fileSuffix}"
+        copyFiles ${fileCount} "binary_$fileSuffix"
         java -jar target/${JAR_NAME} false true ${fileSuffix} "${fileDest}"
         java -jar target/${JAR_NAME} true true ${fileSuffix} "${fileDest}"
 
