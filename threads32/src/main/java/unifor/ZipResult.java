@@ -12,6 +12,7 @@ public class ZipResult {
     private String memory;
     private int cores;
     private boolean binary;
+    private boolean async;
 
     public String getFileName() {
         return fileName;
@@ -59,5 +60,13 @@ public class ZipResult {
 
     public boolean isBinary() {
         return binary;
+    }
+
+    public void setAsync(boolean async) {
+        this.async = async;
+    }
+
+    public boolean isAsync() {
+        return async;
     }
 }

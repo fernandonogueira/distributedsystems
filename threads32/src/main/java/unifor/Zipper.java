@@ -1,7 +1,6 @@
 package unifor;
 
 import java.io.*;
-import java.lang.management.ManagementFactory;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -38,15 +37,13 @@ public class Zipper {
             });
         }
 
-//        for (int i = 3; i < args.length; i++) {
-//            list.add(PREFIX + (binary ? "/binary/" : "text") + args[i]);
-//        }
-
+        long tookMs;
         if (!parallel) {
             long startSync = System.currentTimeMillis();
             list.forEach(Zipper::zip);
             long syncEnd = System.currentTimeMillis();
-            System.out.println("Sync took: " + (syncEnd - startSync) + "ms");
+            tookMs = (syncEnd - startSync);
+            System.out.println("Sync took: " + tookMs + "ms");
         } else {
             System.out.println("Starting all threads...");
             long allThreadsStart = System.currentTimeMillis();
@@ -65,26 +62,37 @@ public class Zipper {
                 }
             });
 
-            long tookMs = System.currentTimeMillis() - allThreadsStart;
-
-            ZipResult result = new ZipResult();
-            result.setMemory(memorySize);
-            result.setCores(cores);
-            result.setDurationMs(tookMs);
-            result.setBinary(binary);
-            result.setFileSize(fileSize);
-
-            appendResult(result);
+            tookMs = System.currentTimeMillis() - allThreadsStart;
 
             System.out.println("All threads completed! Took: "
                     + (tookMs) + "ms");
         }
 
+        ZipResult result = new ZipResult();
+        result.setMemory(memorySize);
+        result.setCores(cores);
+        result.setDurationMs(tookMs);
+        result.setBinary(binary);
+        result.setFileSize(fileSize);
+        result.setAsync(parallel);
+
+        appendResult(result);
+
     }
 
     private static void appendResult(ZipResult result) throws IOException {
         FileWriter writer = new FileWriter(new File("/opt/test-results/result.csv"), true);
-        writer.append(result.getCores() + "," + result.getMemory() + "," + result.getFileSize() + "," + result.getDurationMs());
+        writer.append(String.valueOf(result.getCores()))
+                .append(",")
+                .append(result.getMemory())
+                .append(",")
+                .append(result.getFileSize())
+                .append(",")
+                .append(String.valueOf(result.getDurationMs()))
+                .append(",")
+                .append(result.isAsync() ? "async" : "sync")
+                .append(",")
+                .append(result.isBinary() ? "bin" : "txt");
         writer.write("\n");
         writer.flush();
         writer.close();
