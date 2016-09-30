@@ -22,7 +22,7 @@ function copyFiles {
 
 }
 
-for fileSuffix in {"10mb" "20mb" "40mb"}
+for fileSuffix in "10mb" "20mb" "40mb"
 do
 
     echo $fileSuffix
