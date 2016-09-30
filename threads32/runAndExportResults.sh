@@ -25,9 +25,11 @@ function copyFiles {
 for fileSuffix in {"10mb" "20mb" "40mb"}
 do
 
+    echo $fileSuffix
+
     for fileCount in 10 20 40
     do
-        copyFiles ${fileCount} "file_$fileSuffix"
+        copyFiles ${fileCount} "file_"${fileSuffix}"
         java -jar target/${JAR_NAME} false false ${fileSuffix} "${fileDest}"
         java -jar target/${JAR_NAME} true false ${fileSuffix} "${fileDest}"
 
